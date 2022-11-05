@@ -124,6 +124,8 @@
     </div>
   </div>
   {% endblock barra_busqueda %}
+
+  <br>
     <!-- Main Content -->
     
 
@@ -133,24 +135,10 @@
           {% block contenido %}
           {% if posts %}
             {% for post in posts %}
+
+            
                 <div class="post-preview">
-                  <a href="{% url 'Blog:detalle_post' post.slug %}">
-                    <h2 class="post-title">
-                      {{ post.titulo }}
-                    </h2>
-                    <h3 class="post-subtitle">
-                      {{ post.descripcion }}
-                    </h3>
-                  </a>
-                  <p class="post-meta">Escrito por
-                   <strong>{{ post.autor }}</strong>   el
-                    {{ post.fecha_creacion }}</p>
-
-
-
-
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-                    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+                                    
                    
 
                     <div class="card border-primary mb-3 text-center ">
@@ -159,8 +147,10 @@
                       </div>
                       <div class="card-body">
                         <h5 class="card-title"> {{ post.descripcion }}</h5>
-                        <p class="card-text text-primary"> {{ post.contenido }}</p>
-                        <a href="{% url 'Blog:detalle_post' post.slug %}" class="btn btn-primary">Go</a>
+                        <p class="card-text text-primary"> {{ post.contenido }}
+
+                        </p>
+                        <a href="{% url 'Blog:detalle_post' post.slug|striptags %}" class="btn btn-primary">Go</a>
                       </div>
                       <div class="card-footer text-muted">
                         <p class="post-meta">Escrito por
@@ -168,14 +158,6 @@
                            {{ post.fecha_creacion }}</p>
                       </div>
                     </div>
-
-
-
-
-
-
-
-
 
 
                 </div>
