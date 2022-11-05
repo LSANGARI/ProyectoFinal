@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Categoria
 #from django.conf import settings
 from django.db.models import Q
@@ -126,4 +126,11 @@ def aboutus(request):
     return render (request, 'aboutus.html')
 
 
+def editaPost(request, slug):
+    posts = Post.objects.get(slug=slug)
+    return render (request, 'editarpost.html/', {'detalle_post':posts})
  
+def eliminaPost(request, slug):
+    posts = Post.objects.get(slug=slug)
+    posts.delete()
+    return redirect ('/')
