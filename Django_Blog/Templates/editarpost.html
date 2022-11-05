@@ -1,0 +1,139 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block titulo %}
+  {{ detalle_post.titulo }}
+{% endblock titulo %}
+
+{% block imagen %}
+  
+
+<!-- {{ detalle_post.imagen.url }}-->
+
+
+{% endblock imagen %}
+
+{% block titulo_principal %}
+
+
+
+
+
+
+
+   
+
+   
+
+{% endblock titulo_principal %}
+
+{% block barra_busqueda %}
+{% endblock barra_busqueda %}
+
+{% block contenido %}
+  
+{{form.media}}
+
+      <h2>Edición de Post</h2>
+    
+          <div class="card-body">
+              <form action="/editaPos/" method="POST">{% csrf_token %}
+                  <div class="form-group">
+                      <input type="text" id="txtCodigo" name="txtCodigo" value="{{detalle_post.titulo}}" class="form-control" placeholder="Código"
+                          minlength="6" maxlength="6" readonly required>
+                  </div>
+                  <div class="form-group">
+                      <input type="text" id="txtNombre" name="txtNombre" value="{{detalle_post.slug}}" class="form-control" placeholder="Nombre"
+                          maxlength="50" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="text" id="numCreditos" name="numCreditos" value="{{detalle_post.descripcion}}" class="form-control" min="1" max="9"
+                          value="1" required>
+                  </div>   
+                  
+                  <div class="form-group">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">"{{detalle_post.contenido}}" </textarea>
+                                    </div>  
+                  
+                  <div class="form-group">
+                    <input type="text" id="numCreditos" name="numCreditos" value="{{detalle_post.imagen}}" class="form-control" min="1" max="9"
+                        value="1" required>
+                </div>     
+
+                <div class="form-group">
+                  <input type="text" id="numCreditos" name="numCreditos" value="{{detalle_post.autor}}" class="form-control" min="1" max="9"
+                      value="1" required>
+              </div>   
+
+              <div class="form-group">
+                <input type="text" id="numCreditos" name="numCreditos" value="{{detalle_post.categoria}}" class="form-control" min="1" max="9"
+                    value="1" required>
+            </div>  
+
+            <div class="form-group">
+              <input type="text" id="numCreditos" name="numCreditos" value="{{detalle_post.estado}}" class="form-control" min="1" max="9"
+                  value="1" required>
+          </div> 
+
+          <div class="form-group">
+            <input type="text" id="numCreditos" name="numCreditos" value="{{detalle_post.fecha_creacion}}" class="form-control" min="1" max="9"
+                value="1" required>
+        </div> 
+                  
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                  </div>
+              </form>
+          </div>
+
+
+
+          <head>
+            <!-- Required meta tags -->
+            <meta charset="utf-8">
+            <meta
+            name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+            <title>TinyMCE WYSIWYG Bootstrap</title>
+    
+            <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+            
+            <script>
+                 tinymce.init({
+                   selector: 'textarea#editor', });
+            </script>
+    
+        </head>
+    
+        <body>
+        
+        <h1>Hello, world!</h1>
+          <textarea id="editor"></textarea>
+    
+        </body>
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+        
+  {% if user.is_authenticated%}
+  <center>
+    <span >
+  <a class="btn btn-primary" href="" role="button">Guardar</a>
+</span>
+<span >
+  <a class="btn btn-danger" href="" role="button">Cancelar</a>
+</span>
+</center>
+{% endif%}
+
+{% endblock contenido %}
