@@ -16,6 +16,9 @@
 {% block titulo_principal %}
    <h1>{{ detalle_post.titulo }}</h1>
    <p>{{ detalle_post.descripcion }}</p>
+
+   
+
 {% endblock titulo_principal %}
 
 {% block barra_busqueda %}
@@ -23,4 +26,5 @@
 
 {% block contenido %}
   {{ detalle_post.contenido | safe }}
+  
 {% endblock contenido %}
