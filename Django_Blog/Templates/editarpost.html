@@ -11,6 +11,7 @@
 {{ detalle_post.imagen.url }}
 
 
+
 {% endblock imagen %}
 
 {% block titulo_principal %}
@@ -40,38 +41,40 @@
 
 
 
-<form enctype="multipart/form-data" method="post" id="post_form" novalidate><input type="hidden" name="csrfmiddlewaretoken" value="">
-  <div>
+<form action= "/guardarPost/" enctype="multipart/form-data" method="post" enctype="multipart/form-data"> {% csrf_token %} 
 
+              
+                        <label class="required" for="id" hidden>ID:</label>              
+                            <input type="text" name="id" value="{{ detalle_post.id }}" class="form-control" maxlength="90" required id="id"  hidden>     
+            
 
-
-        <fieldset class="module aligned ">
-              <div class="form-row field-titulo">
+    
+              <div class="form-group ">
                   <div>
-                          <label class="required" for="id_titulo">Titulo:</label>              
-                              <input type="text" name="titulo" value="{{ detalle_post.titulo }}" class="form-control" maxlength="90" required id="id_titulo">     
+                          <label class="required" for="titulo">Titulo:</label>              
+                              <input type="text" name="titulo" value="{{ detalle_post.titulo }}" class="form-control" maxlength="90" required id="titulo">     
                   </div>
               </div>
       
-          <div class="form-row field-slug">
+          <div class="form-group ">
                 <div>
-                       <label class="required" for="id_slug">Slug:</label>              
-                              <input type="text" name="slug" value="{{ detalle_post.titulo }}" class="form-control" maxlength="100" required id="id_slug">
+                       <label class="required" for="slug">Slug:</label>              
+                              <input type="text" name="slug" value="{{ detalle_post.slug }}" class="form-control" maxlength="100" required id="slug">
                 </div>
           </div>
       
-          <div class="form-row field-descripcion">
+          <div class="form-group">
                   <div>
-                          <label class="required" for="id_descripcion">Descripcion:</label>
-                              <input type="text" name="descripcion" value="{{ detalle_post.descripcion}}" class="form-control" maxlength="110" required id="id_descripcion">
+                          <label class="required" for="descripcion">Descripcion:</label>
+                              <input type="text" name="descripcion" value="{{ detalle_post.descripcion}}" class="form-control" maxlength="110" required id="descripcion">
                   </div>
           </div>
-          <div class="form-row field-contenido">
+          <div class="form-group ">
                   <div>
-                          <label class="required" for="id_contenido">Contenido:</label>
+                          <label class="required" for="contenido">Contenido:</label>
                           
-                              <div class="django-ckeditor-widget" data-field-id="id_contenido" style="display: inline-block;">
-      <textarea name="contenido" cols="40" rows="10" required id="id_contenido" data-processed="0" data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: &quot;full&quot;, &quot;height&quot;: 291, &quot;width&quot;: 835, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;language&quot;: &quot;es-ar&quot;}" data-external-plugin-resources="[]" data-id="id_contenido" data-type="ckeditortype">
+                              <div class="django-ckeditor-widget" data-field-id="contenido" style="display: inline-block;">
+      <textarea name="contenido" cols="40" rows="10" required id="contenido" data-processed="0" data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: &quot;full&quot;, &quot;height&quot;: 291, &quot;width&quot;: 835, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;language&quot;: &quot;es-ar&quot;}" data-external-plugin-resources="[]" data-id="contenido" data-type="ckeditortype">
 
         {{ detalle_post.contenido}}
 
@@ -80,19 +83,19 @@
                   </div>
           </div>
           
-          <div class="form-row field-imagen">
+          <div class="form-group ">
                   <div>
-                          <label class="required" for="id_imagen">Imagen:</label>
+                          <label class="required" for="imagen">Imagen:</label>
                               <p class="file-upload">Actualmente: <a href="{{ detalle_post.imagen.url}}">{{ detalle_post.imagen.url}}</a><br>
   Modificar:
-  <input type="file" name="imagen" accept="image/*" id="id_imagen"></p>
+  <input type="file" name="imagen" accept="image/*" id="imagen"></p>
                   </div>
           </div>
-          <div class="form-row field-autor">
+          <div class="form-group ">
                   <div>
-                          <label class="required" for="id_autor">Autor:</label>
+                          <label class="required" for="autor">Autor:</label>
 
-                          <select class="form-select" name="autor" required id="id_autor">
+                          <select class="form-select" name="autor" required id="autor">
                          
                         
                          
@@ -145,22 +148,18 @@
         {% endif %}
           
 
-  </fieldset>
-  
-  <div class="submit-row">
-  </div>
-  </div>
-  </form>
+
 
 
        
   {% if user.is_authenticated%}
   <center>
     <span >
-  <a class="btn btn-primary" href="" role="button">Guardar</a>
+      <button type="submit" class="btn btn-primary">Guardar </button>
+</form>
 </span>
 <span >
-  <a class="btn btn-danger" href="" role="button">Cancelar</a>
+  <a class="btn btn-danger" href="{% url 'Blog:index' %} " role="button">Cancelar</a>
 </span>
 </center>
 {% endif%}

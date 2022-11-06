@@ -13,8 +13,11 @@ urlpatterns = [
     path('tecnologia/', tecnologia,  name='tecnologia'),
     path('tutoriales/', tutoriales,  name='tutoriales'),
     path('aboutus/', aboutus,  name='aboutus'),
+    path('guardarPost/', guardarPost, name='guardar_post'),
     path('<slug:slug>/', detallePost, name='detalle_post'),
     path('eliminaPost/<slug>/', eliminaPost, name='elimina_post'),
     path('editaPost/<slug>/', editaPost, name='editarPost_post'),
     
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

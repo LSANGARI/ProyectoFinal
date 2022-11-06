@@ -131,6 +131,33 @@ def editaPost(request, slug):
     autores = Autor.objects.all()
     categorias= Categoria.objects.all
     return render (request, 'editarpost.html/', {'detalle_post':posts , 'lista_autores':autores, 'categorias':categorias, })
+
+def guardarPost(request):
+
+    id =request.POST['id']
+    titulo =request.POST['titulo']
+    slug = request.POST['slug']
+    descripcion = request.POST['descripcion']
+    #contenido = request.POST['contenido']
+    #imagen = request.POST['imagen']
+    #autor = request.POST['autor']
+    #categoria = request.POST['categorias']
+    #estado = request.POST['estado']
+
+    post = Post.objects.get(id=id)
+
+    post.titulo = titulo
+    post.slug = slug
+    post.descripcion = descripcion
+    #post.contenido = contenido
+    #post.imagen = imagen
+    #post.autor = autor
+    #post.categoria = categoria
+    #post.estado = estado
+
+    post.save()
+    return redirect ('/')
+
  
 def eliminaPost(request, slug):
     posts = Post.objects.get(slug=slug)
