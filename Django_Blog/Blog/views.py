@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Categoria
+from .models import Post, Categoria, Autor
 #from django.conf import settings
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -128,7 +128,9 @@ def aboutus(request):
 
 def editaPost(request, slug):
     posts = Post.objects.get(slug=slug)
-    return render (request, 'editarpost.html/', {'detalle_post':posts})
+    autores = Autor.objects.all()
+    categorias= Categoria.objects.all
+    return render (request, 'editarpost.html/', {'detalle_post':posts , 'lista_autores':autores, 'categorias':categorias, })
  
 def eliminaPost(request, slug):
     posts = Post.objects.get(slug=slug)
