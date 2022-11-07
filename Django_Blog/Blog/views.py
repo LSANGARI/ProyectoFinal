@@ -3,6 +3,7 @@ from .models import Post, Categoria, Autor
 #from django.conf import settings
 from django.db.models import Q
 from django.core.paginator import Paginator
+#from django.utils.datastructures import MultiValueDictKeyError
 
 
 
@@ -138,22 +139,27 @@ def guardarPost(request):
     titulo =request.POST['titulo']
     slug = request.POST['slug']
     descripcion = request.POST['descripcion']
-    #contenido = request.POST['contenido']
-    #imagen = request.POST['imagen']
-    #autor = request.POST['autor']
-    #categoria = request.POST['categorias']
-    #estado = request.POST['estado']
+    contenido = request.POST['contenido']
+    imagen = request.FILES['imagen']
+    autor = request.POST['autor']
+    categoria = request.POST['categoria']
+
+
+    if 'estado' in request.POST: 
+        estado = True 
+    else: estado = False
+
 
     post = Post.objects.get(id=id)
 
     post.titulo = titulo
     post.slug = slug
     post.descripcion = descripcion
-    #post.contenido = contenido
-    #post.imagen = imagen
-    #post.autor = autor
-    #post.categoria = categoria
-    #post.estado = estado
+    post.contenido = contenido
+    post.imagen = imagen
+    post.autor = Autor(id=autor)
+    post.categoria = Categoria(id=categoria)
+    post.estado = estado
 
     post.save()
     return redirect ('/')

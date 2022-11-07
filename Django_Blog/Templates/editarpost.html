@@ -41,7 +41,7 @@
 
 
 
-<form action= "/guardarPost/" enctype="multipart/form-data" method="post" enctype="multipart/form-data"> {% csrf_token %} 
+<form action= "/guardarPost/" method="post" enctype="multipart/form-data"> {% csrf_token %} 
 
               
                         <label class="required" for="id" hidden>ID:</label>              
@@ -87,12 +87,13 @@
                   <div>
                           <label class="required" for="imagen">Imagen:</label>
                               <p class="file-upload">Actualmente: <a href="{{ detalle_post.imagen.url}}">{{ detalle_post.imagen.url}}</a><br>
-  Modificar:
-  <input type="file" name="imagen" accept="image/*" id="imagen"></p>
-                  </div>
-          </div>
-          <div class="form-group ">
-                  <div>
+                          Modificar:
+                          <input type="file" name="imagen" accept="image/*" id="imagen"></p>
+                    </div>
+            </div>
+
+           <div class="form-group ">
+                   <div>
                           <label class="required" for="autor">Autor:</label>
 
                           <select class="form-select" name="autor" required id="autor">
@@ -101,7 +102,7 @@
                          
                           {% for autor in lista_autores %}
                         
-                              {% if autor.id != detalle_post.autor %}
+                              {% if  detalle_post.autor_id == autor.id %}
                                   <option value="{{autor.id}}" selected> {{ autor.apellido}},{{autor.nombre}}</option>                
                                     
 
@@ -112,18 +113,17 @@
                           {% endfor %}
                            </select>
      
-                     
                   </div>
               
           </div>
       
  
 
-                  <div>
+                  <div class="form-group ">
                           <label class="required" for="categorias">Categoria:</label>
                               <select class="form-select" name="categoria" required id="categorias">
                                        {% for categoria in categorias %}
-                                            {% if categoria.id == detalle_post.id %}
+                                            {% if detalle_post.categoria_id == categoria.id %}
                                                <option value="{{categoria.id}}" selected> {{categoria.nombre}} </option>
                                            {%else%}
                                                <option value="{{categoria.id}}"> {{categoria.nombre}}</option>
@@ -132,22 +132,23 @@
                                      </select>
           </div>
         
+          <div class="form-group ">
                   
         {% if detalle_post.estado == True %}
 
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="estado" value="" id="{{detalle_post.estado}}" checked>
+                    <input class="form-check-input" type="checkbox" name="estado" value="{{detalle_post.estado}}" id="estado" checked>
                     <label class="form-check-label" for="{{detalle_post.estado}}">Publicado/No Publicado </label>
                   </div>
         {% else %}
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="estado" value="" id="{{detalle_post.estado}}" >
+                <input class="form-check-input" type="checkbox" name="estado" value="{{detalle_post.estado}}" id="estado" >
                 <label class="form-check-label" for="{{detalle_post.estado}}">Publicado/No Publicado </label>
               </div>
         {% endif %}
           
-
+      </div>
 
 
 
