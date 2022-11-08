@@ -55,8 +55,16 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'Blog:aboutus' %}">Aboutus</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'Blog:cruds' %}">CRUD*</a>
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                CRUDS
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'Blog:autores' %}">Autores</a>
+                <a class="dropdown-item" href="{% url 'Blog:post' %}">Post</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Usuarios</a>
+              </div>
             </li>
           </ul>
         </div>

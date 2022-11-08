@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpRequest
 from .models import Post, Categoria, Autor
 #from django.conf import settings
 from django.db.models import Q
 from django.core.paginator import Paginator
 #from django.utils.datastructures import MultiValueDictKeyError
-
+from .forms import formAutor, formPost
+#from django.views.generic.edit import formAutor
 
 
 # Create your views here.
@@ -171,21 +173,74 @@ def eliminaPost(request, slug):
     posts.delete()
     return redirect ('/')
 
-def cruds(request):
-    autores = Autor.objects.all()
+#def cruds(request):
+#     autores = Autor.objects.all()
 
-    if request.method =='POST':
-         nombre =request.POST['nombre']
-         apellido = request.POST['apellido']
-         linkedin = request.POST['linkedin']
-         git = request.POST['git']
-         email = request.POST['email']
-         #activo = request.POST['activo']
-         if 'activo' in request.POST: 
-            activo = True 
-         else: 
-            activo = False
+#     if request.method =='POST':
+#          nombre =request.POST['nombre']
+#          apellido = request.POST['apellido']
+#          linkedin = request.POST['linkedin']
+#          git = request.POST['git']
+#          email = request.POST['email']
+#          #activo = request.POST['activo']
+#          if 'activo' in request.POST: 
+#             activo = True 
+#          else: 
+#             activo = False
 
-         autor = Autor.objects.create(nombre=nombre, apellido=apellido, linkedin=linkedin, git=git, correo=email, estado=activo)
+#          autor = Autor.objects.create(nombre=nombre, apellido=apellido, linkedin=linkedin, git=git, correo=email, estado=activo)
          
-    return render (request, 'cruds.html/', {'autores':autores} )
+#     return render (request, 'cruds.html/',)
+
+class formAutorView(HttpRequest):
+
+    def index(request):
+        autor = formAutor()
+        autores = Autor.objects.all()
+        return render(request, 'autores.html', {'form':autor, 'autores':autores})
+
+    def create(request):
+        autor = formAutor(request.POST)
+        if autor.is_valid():
+            autor.save()
+            
+            autores = Autor.objects.all()
+            autor=formAutor()
+        return render(request, 'autores.html', {'form':autor, 'autores':autores, 'mensaje':'OK' })
+        #return redirect(request.META['HTTP_REFERER'])
+
+    def delete(request, autor_id):
+        autor = Autor.objects.get(pk=autor_id)
+        autor.delete()
+        autores = Autor.objects.all()
+        autor = formAutor()
+        return render(request, 'autores.html', {'form':autor, 'autores':autores})
+
+    def edit(request, autor_id):
+        autor = Autor.objects.filter(id=autor_id).first()
+        form = formAutor(instance=autor)   
+        return render(request, 'editarAutor.html', {'form':form, 'autor':autor, })
+
+    def update(request, autor_id):
+        autor= Autor.objects.get(pk=autor_id)
+        form = formAutor(request.POST, instance=autor)
+        if form.is_valid():
+            form.save()
+        autores = Autor.objects.all()  
+        autor = formAutor() 
+        return render(request, 'autores.html', {'form':autor, 'autores':autores}) 
+
+class formPostView(HttpRequest):
+
+    def index(request):
+        post = formPost()
+        return render(request, 'posts.html', {'form':post})
+
+    def create(request):
+        post = formAutor(request.POST)
+        if post.is_valid():
+            post.save()
+            
+            
+        post=formPost()
+        return render(request, 'posts.html', {'mensaje':'OK' })
