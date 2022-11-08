@@ -140,6 +140,7 @@ def guardarPost(request):
     slug = request.POST['slug']
     descripcion = request.POST['descripcion']
     contenido = request.POST['contenido']
+    #ver el tema de no modifica el img
     imagen = request.FILES['imagen']
     autor = request.POST['autor']
     categoria = request.POST['categoria']
@@ -169,3 +170,22 @@ def eliminaPost(request, slug):
     posts = Post.objects.get(slug=slug)
     posts.delete()
     return redirect ('/')
+
+def cruds(request):
+    autores = Autor.objects.all()
+
+    if request.method =='POST':
+         nombre =request.POST['nombre']
+         apellido = request.POST['apellido']
+         linkedin = request.POST['linkedin']
+         git = request.POST['git']
+         email = request.POST['email']
+         #activo = request.POST['activo']
+         if 'activo' in request.POST: 
+            activo = True 
+         else: 
+            activo = False
+
+         autor = Autor.objects.create(nombre=nombre, apellido=apellido, linkedin=linkedin, git=git, correo=email, estado=activo)
+         
+    return render (request, 'cruds.html/', {'autores':autores} )
