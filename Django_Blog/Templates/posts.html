@@ -29,9 +29,9 @@ CRUD
 
           {% endif %}
 
-          <h1>Alta de Autor</h1>
+          <h1>Alta Post</h1>
 
-          <form action="{% url 'Blog:guardarPost' %}" method="POST" > 
+          <form action="{% url 'Blog:altapost' %}" method="POST" enctype="multipart/form-data"> 
               {% csrf_token %}
               {%  if mensaje %}
                   <div class="alert alert-success" role="alert">
@@ -40,9 +40,12 @@ CRUD
               {% endif %}
 
               {{ form|crispy }}
+              {{ form.media }}
+              
+              
 
               <button type="submit" class="btn btn-success">Guardar</button>
-
+              <a class="btn btn-danger" href="{% url 'Blog:index' %}">Cancelar</a>
           </form>
 
 {% endblock contenido %}

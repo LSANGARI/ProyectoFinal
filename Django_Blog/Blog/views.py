@@ -237,10 +237,10 @@ class formPostView(HttpRequest):
         return render(request, 'posts.html', {'form':post})
 
     def create(request):
-        post = formAutor(request.POST)
+        post = formPost(request.POST, request.FILES)
+        print(f'ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg{post}')
         if post.is_valid():
-            post.save()
-            
-            
-        post=formPost()
-        return render(request, 'posts.html', {'mensaje':'OK' })
+            post.save()   
+
+            post=formPost()
+        return render(request, 'posts.html', {'mensaje':'OK', 'form':post})
