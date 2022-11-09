@@ -1,5 +1,6 @@
 from django import forms
-from .models import Post, Categoria, Autor
+from .models import Post, Autor
+
 
 class formAutor(forms.ModelForm):
 
@@ -12,5 +13,6 @@ class formPost(forms.ModelForm):
     class Meta:
         model=Post
         fields = '__all__'
+
 
 

@@ -24,6 +24,7 @@ urlpatterns = [
     path('posts/', formPostView.index, name='posts'),
     path('altapost/', formPostView.create, name='altapost'),
      path('guardarAutor/', formAutorView.create, name='guardarAutor'),
+
     path('<slug:slug>/', detallePost, name='detalle_post'),
     
     

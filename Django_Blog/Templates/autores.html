@@ -45,9 +45,9 @@ CRUD
               {% endif %}
 
               {{ form|crispy }}
-
+              {% if user.is_authenticated%}
               <button type="submit" class="btn btn-success">Guardar</button>
-
+              {% endif %}
           </form>
 <br>
           <div class=''>
@@ -76,8 +76,10 @@ CRUD
                           <td>{{autor.git}}</td>
                           <td>{{autor.correo}}</td>
                           <td>{{autor.estado}}</td>
+                          {% if user.is_authenticated%}
                           <td><a href="{% url 'Blog:editarAutor' autor.id %}" class="btn btn-info">Editar</a></td>
                           <td><a href="{% url 'Blog:eliminarAutor' autor.id %}" class="btn btn-danger">Eliminar</a></td>
+                          {% endif %}
                       </tr>
                   {%endfor%}
                 </tbody>
