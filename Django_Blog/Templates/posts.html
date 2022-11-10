@@ -44,9 +44,11 @@ CRUD
               
               
               {% if user.is_authenticated%}
+              <center>
               <button type="submit" class="btn btn-primary">Guardar</button>
               <a class="btn btn-danger" href="{% url 'Blog:index' %}">Cancelar</a>
               {% endif %}
+            </center>
           </form>
 
 {% endblock contenido %}
