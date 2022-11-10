@@ -156,8 +156,8 @@
                         {{ post.titulo }}
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title"> {{ post.descripcion }}</h5>
-                        <p class="card-text text-primary"> {{ post.contenido }}
+                        <h5 class="card-title "> {{ post.descripcion }}</h5>
+                        <p class="card-text text-primary text-truncate""> {{ post.contenido }}
 
                         </p>
                         <a href="{% url 'Blog:detalle_post' post.slug %}" class="btn btn-info">Ver</a>

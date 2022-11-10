@@ -17,13 +17,12 @@ urlpatterns = [
     path('eliminaPost/<slug>/', eliminaPost, name='elimina_post'),
     path('editaPost/<slug>/', editaPost, name='editarPost_post'),
     path('autores/', formAutorView.index, name='autores'),
-   
     path('editarAutor/<autor_id>', formAutorView.edit, name='editarAutor'),
     path('eliminarAutor/<autor_id>/', formAutorView.delete, name='eliminarAutor'),
     path('updateAutor/<autor_id>/', formAutorView.update, name='updateAutor'),
     path('posts/', formPostView.index, name='posts'),
     path('altapost/', formPostView.create, name='altapost'),
-     path('guardarAutor/', formAutorView.create, name='guardarAutor'),
+    path('guardarAutor/', formAutorView.create, name='guardarAutor'),
 
     path('<slug:slug>/', detallePost, name='detalle_post'),
     
