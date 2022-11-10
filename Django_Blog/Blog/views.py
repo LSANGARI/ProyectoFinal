@@ -143,9 +143,22 @@ def guardarPost(request):
     descripcion = request.POST['descripcion']
     contenido = request.POST['contenido']
     #ver el tema de no modifica el img
-    imagen = request.FILES['imagen']
+    if request.POST.get('imagen')=='':
+        imagen = request.POST['url']
+        imagen = imagen.replace('media/', '')
+    else:
+        imagen = request.FILES['imagen']
+
     autor = request.POST['autor']
     categoria = request.POST['categoria']
+
+
+#ver el tema de no modifica el img
+    #imagen = request.FILES['imagen']
+    #imagen=request.POST['imagen'](request.files['imagen'])
+    #if request.method == 'POST' and request.FILES.get('imagen').imagen:
+     #   imagen = imagen.url(request.FILES['imagen'])
+        #file = request.FILES['imagen']
 
 
     if 'estado' in request.POST: 

@@ -86,9 +86,10 @@
           <div class="form-group ">
                   <div>
                           <label class="required" for="imagen">Imagen:</label>
-                              <p class="file-upload">Actualmente: <a href="{{ detalle_post.imagen.url}}">{{ detalle_post.imagen.url}}</a><br>
+                              <p class="file-upload">Actualmente: <a href="{{ detalle_post.imagen}}">{{ detalle_post.imagen}}</a><br>
                           Modificar:
                           <input type="file" name="imagen" accept="image/*" id="imagen"></p>
+                          <input type="text" name="url" value="{{ detalle_post.imagen.url}}"  id="url" hidden>
                     </div>
             </div>
 
