@@ -35,9 +35,7 @@ a {
   transition: all 0.2s;
 }
 
-a:focus, a:hover {
-  color: #0085A1;
-}
+
 
 blockquote {
   font-style: italic;
