@@ -152,7 +152,7 @@
                       {% if user.is_authenticated%}
                       <center>
                         <span >
-                      <a class="btn btn-primary" href="editaPost/{{post.slug}}" role="button">Editar</a>
+                      <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button">Editar</a>
                     </span>
                     <span >
                       <a class="btn btn-danger" href="eliminaPost/{{post.slug}}" role="button">Eliminar</a>
