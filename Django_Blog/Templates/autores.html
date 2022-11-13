@@ -75,7 +75,21 @@ CRUD
                           <td>{{autor.linkedin}}</td>
                           <td>{{autor.git}}</td>
                           <td>{{autor.correo}}</td>
-                          <td>{{autor.estado}}</td>
+                          <td>
+                          {% if autor.estado == True %}
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" onclick="return false;" name="estado" value="{{autor.estado}}" id="estado" checked>
+                           
+                          </div>
+                            {% else %}
+            
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" onclick="return false;" name="estado" value="{{autor.estado}}" id="estado" >
+                           
+                          </div>
+                            {% endif %}
+                          </td>
+                         <!-- <td>{{autor.estado}}</td>-->
                           {% if user.is_authenticated%}
                           <td><a href="{% url 'Blog:editarAutor' autor.id %}" class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
                           <td><a href="{% url 'Blog:eliminarAutor' autor.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
