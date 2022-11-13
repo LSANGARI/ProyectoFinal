@@ -56,8 +56,10 @@
 {{ form|crispy }}
 {{ form.media }}
 {% if user.is_authenticated%}
-<button type="submit" class="btn btn-success">Guardar</button>
-<a class="btn btn-danger" href="{% url 'Blog:index' %}">Cancelar</a>
+<center>
+<button type="submit" class="btn btn-success"><i class="fas fa-save"></i></button>
+<a class="btn btn-danger" href="{% url 'Blog:index' %}"><i class="fas fa-home"></i></a>
+</center>
 {% endif %}
 </form>
 

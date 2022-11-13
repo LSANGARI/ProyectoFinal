@@ -31,6 +31,7 @@ CRUD
 
           <h1>Alta Post</h1>
 
+       
           <form action="{% url 'Blog:altapost' %}" method="POST" enctype="multipart/form-data"> 
               {% csrf_token %}
               {%  if mensaje %}
@@ -45,10 +46,10 @@ CRUD
               
               {% if user.is_authenticated%}
               <center>
-              <button type="submit" class="btn btn-primary">Guardar</button>
-              <a class="btn btn-danger" href="{% url 'Blog:index' %}">Cancelar</a>
+              <button type="submit" class="btn btn-success"><i class="fas fa-save"></i></button>
+              <a class="btn btn-danger" href="{% url 'Blog:index' %}"><i class="fas fa-home"></i></a>
               {% endif %}
             </center>
           </form>
-
+ 
 {% endblock contenido %}

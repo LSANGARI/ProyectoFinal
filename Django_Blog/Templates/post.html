@@ -26,5 +26,10 @@
 
 {% block contenido %}
   {{ detalle_post.contenido | safe }}
+  <center>
+    
+    <a class="btn btn-danger" href="{% url 'Blog:index' %}"><i class="fas fa-home"></i></a>
+    
+  </center>
   
 {% endblock contenido %}

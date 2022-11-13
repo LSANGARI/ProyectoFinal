@@ -108,7 +108,7 @@
                 <input type="text" class="form-control" placeholder="Buscar..." name="buscar" value = "{{ request.GET.buscar }}">
                 <span class="input-group-list">
                   <i class="icon icon-search"></i>
-                  <button type="submit" class="btn btn-primary">Buscar</button>
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </span>
               </div>
             </div>
@@ -143,10 +143,10 @@
                         <p class="card-text text-primary text-truncate"> {{ post.contenido }}
 
                         </p>
-                        <a href="{% url 'Blog:detalle_post' post.id %}" class="btn btn-success">Ver</a>
+                        <a href="{% url 'Blog:detalle_post' post.id %}" class="btn btn-success"><i class="fas fa-eye"></i></a>
                         {% if user.is_authenticated%}
-                        <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button">Editar</a>
-                        <a class="btn btn-danger" href="{% url 'Blog:elimina_post' post.id %}" role="button">Eliminar</a>
+                        <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger" href="{% url 'Blog:elimina_post' post.id %}" role="button"><i class="fas fa-trash-alt"></i></a>
                         {% endif%}
                       </div>
                       

@@ -46,7 +46,7 @@ CRUD
 
               {{ form|crispy }}
               {% if user.is_authenticated%}
-              <button type="submit" class="btn btn-success">Guardar</button>
+              <button type="submit" class="btn btn-success"><i class="fas fa-save"></i></button>
               {% endif %}
           </form>
 <br>
@@ -77,8 +77,8 @@ CRUD
                           <td>{{autor.correo}}</td>
                           <td>{{autor.estado}}</td>
                           {% if user.is_authenticated%}
-                          <td><a href="{% url 'Blog:editarAutor' autor.id %}" class="btn btn-info">Editar</a></td>
-                          <td><a href="{% url 'Blog:eliminarAutor' autor.id %}" class="btn btn-danger">Eliminar</a></td>
+                          <td><a href="{% url 'Blog:editarAutor' autor.id %}" class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
+                          <td><a href="{% url 'Blog:eliminarAutor' autor.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
                           {% endif %}
                       </tr>
                   {%endfor%}
