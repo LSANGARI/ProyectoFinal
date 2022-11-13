@@ -6,6 +6,9 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 #from django.utils.datastructures import MultiValueDictKeyError
 from .forms import formAutor, formPost
+from django.conf import settings
+import os
+
 #from django.views.generic.edit import formAutor
 
 
@@ -26,8 +29,8 @@ def home(request):
     return render(request,'index.html',{'posts':posts})
 
 
-def detallePost(request,slug):
-    post = get_object_or_404(Post,slug = slug)
+def detallePost(request,id):
+    post = get_object_or_404(Post,id = id)
     return render(request,'post.html',{'detalle_post':post})
 
 def generales(request):
@@ -129,81 +132,6 @@ def aboutus(request):
     return render (request, 'aboutus.html')
 
 
-def editaPost(request, slug):
-    posts = Post.objects.get(slug=slug)
-    autores = Autor.objects.all()
-    categorias= Categoria.objects.all
-    return render (request, 'editarpost.html/', {'detalle_post':posts , 'lista_autores':autores, 'categorias':categorias, })
-
-def guardarPost(request):
-
-    id =request.POST['id']
-    titulo =request.POST['titulo']
-    slug = request.POST['slug']
-    descripcion = request.POST['descripcion']
-    contenido = request.POST['contenido']
-    #ver el tema de no modifica el img
-    if request.POST.get('imagen')=='':
-        imagen = request.POST['url']
-        imagen = imagen.replace('media/', '')
-    else:
-        imagen = request.FILES['imagen']
-
-    autor = request.POST['autor']
-    categoria = request.POST['categoria']
-
-
-#ver el tema de no modifica el img
-    #imagen = request.FILES['imagen']
-    #imagen=request.POST['imagen'](request.files['imagen'])
-    #if request.method == 'POST' and request.FILES.get('imagen').imagen:
-     #   imagen = imagen.url(request.FILES['imagen'])
-        #file = request.FILES['imagen']
-
-
-    if 'estado' in request.POST: 
-        estado = True 
-    else: estado = False
-
-
-    post = Post.objects.get(id=id)
-
-    post.titulo = titulo
-    post.slug = slug
-    post.descripcion = descripcion
-    post.contenido = contenido
-    post.imagen = imagen
-    post.autor = Autor(id=autor)
-    post.categoria = Categoria(id=categoria)
-    post.estado = estado
-
-    post.save()
-    return redirect ('/')
-
- 
-def eliminaPost(request, slug):
-    posts = Post.objects.get(slug=slug)
-    posts.delete()
-    return redirect ('/')
-
-#def cruds(request):
-#     autores = Autor.objects.all()
-
-#     if request.method =='POST':
-#          nombre =request.POST['nombre']
-#          apellido = request.POST['apellido']
-#          linkedin = request.POST['linkedin']
-#          git = request.POST['git']
-#          email = request.POST['email']
-#          #activo = request.POST['activo']
-#          if 'activo' in request.POST: 
-#             activo = True 
-#          else: 
-#             activo = False
-
-#          autor = Autor.objects.create(nombre=nombre, apellido=apellido, linkedin=linkedin, git=git, correo=email, estado=activo)
-         
-#     return render (request, 'cruds.html/',)
 
 class formAutorView(HttpRequest):
 
@@ -251,9 +179,99 @@ class formPostView(HttpRequest):
 
     def create(request):
         post = formPost(request.POST, request.FILES)
+        slug=request.POST['slug'].replace(" ", "_")
         if post.is_valid():
-            post.save()   
-
+            post.save(commit=False)   
+            post.instance.slug= slug
+            post.save()
             post=formPost()
         return render(request, 'posts.html', {'mensaje':'OK', 'form':post})
 
+    def edit(request, slug):
+
+        post = Post.objects.filter(slug=slug).first()
+        form = formPost(instance=post)   
+        return render(request, 'editarpost.html', {'form':form, 'post':post, })
+
+    def delete(request, post_id):
+        posts = Post.objects.get(id=post_id)
+        path = str(posts.imagen)
+        document_root= str(settings.MEDIA_ROOT)
+        fullpath = (document_root + "/" + path).replace('/', '\\')
+        os.remove(fullpath)
+        posts.delete()
+        return redirect ('/')
+
+    def update(request, post_id):
+        post= Post.objects.get(pk=post_id)
+        path = str(post.imagen)
+        document_root= str(settings.MEDIA_ROOT)
+        fullpath = (document_root + "/" + path).replace('/', '\\')
+
+        form = formPost(request.POST, request.FILES, instance=post)
+        slug=request.POST['slug'].replace(" ", "_")
+
+        if form.is_valid():
+            
+            if request.POST.get('imagen')=='':
+                form.save(commit=False)  
+                form.instance.slug= slug
+                post.save()
+                form = formPost() 
+                return redirect ('/')
+            else:
+                 os.remove(fullpath)
+                
+                 imagen = request.FILES['imagen']
+
+                 form.save(commit=False)  
+                 form.instance.slug= slug
+                 form.instance.imagen = imagen
+                 post.save()
+                 form = formPost() 
+                 return redirect ('/')
+        
+        
+
+
+
+
+# def guardarPost(request):
+
+#     id =request.POST['id']
+#     titulo =request.POST['titulo']
+
+#     slug = request.POST['slug'].replace('', '_')
+
+#     descripcion = request.POST['descripcion']
+#     contenido = request.POST['contenido']
+#     #ver el tema de no modifica el img
+#     if request.POST.get('imagen')=='':
+#         imagen = request.POST['url']
+#         imagen = imagen.replace('media/', '')
+#     else:
+#         imagen = request.FILES['imagen']
+
+#     autor = request.POST['autor']
+#     categoria = request.POST['categoria']
+
+
+
+#     if 'estado' in request.POST: 
+#         estado = True 
+#     else: estado = False
+
+
+#     post = Post.objects.get(id=id)
+
+#     post.titulo = titulo
+#     post.slug = slug
+#     post.descripcion = descripcion
+#     post.contenido = contenido
+#     post.imagen = imagen
+#     post.autor = Autor(id=autor)
+#     post.categoria = Categoria(id=categoria)
+#     post.estado = estado
+
+#     post.save()
+#     return redirect ('/')

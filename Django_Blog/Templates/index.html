@@ -146,19 +146,22 @@
                         <p class="card-text text-primary text-truncate"> {{ post.contenido }}
 
                         </p>
-                        <a href="{% url 'Blog:detalle_post' post.slug %}" class="btn btn-success">Ver</a>
-                       
+                        <a href="{% url 'Blog:detalle_post' post.id %}" class="btn btn-success">Ver</a>
+                        {% if user.is_authenticated%}
+                        <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button">Editar</a>
+                        <a class="btn btn-danger" href="{% url 'Blog:elimina_post' post.id %}" role="button">Eliminar</a>
+                        {% endif%}
                       </div>
-                      {% if user.is_authenticated%}
-                      <center>
-                        <span >
+                      
+                      <!--  <center>
+                      <span >
                       <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button">Editar</a>
                     </span>
                     <span >
                       <a class="btn btn-danger" href="eliminaPost/{{post.slug}}" role="button">Eliminar</a>
                     </span>
-                    </center>
-                    {% endif%}
+                    </center> -->
+                   
                     <br>
                      <div class="card-footer text-muted">
                         <p class="post-meta">Escrito por <strong>{{ post.autor }}</strong> el {{ post.fecha_creacion }}</p>

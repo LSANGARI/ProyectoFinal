@@ -1,14 +1,15 @@
 {% extends 'index.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block titulo %}
-  {{ detalle_post.titulo }}
+  {{ post.titulo }}
 {% endblock titulo %}
 
 {% block imagen %}
   
 
-{{ detalle_post.imagen.url }}
+{{ post.imagen.url }}
 
 
 
@@ -22,7 +23,7 @@
 
 
 <h1>Modificar Post</h1>
-<h2> {{ detalle_post.titulo }}</h2>
+<h2> {{ post.titulo }}</h2>
    
 
    
@@ -33,9 +34,34 @@
 {% endblock barra_busqueda %}
 
 {% block contenido %}
-  
 
-<script src="/static/ckeditor/ckeditor-init.js" data-ckeditor-basepath="/static/ckeditor/ckeditor/" id="ckeditor-init-script"></script>
+{% if forms.errors %}
+
+<div class="alert alert-danger" role="alert">
+  Ups!
+</div>
+
+{% endif %}
+
+<h1>Editar Post</h1>
+
+<form action="{% url 'Blog:guardar_post' post.id%}" method="POST" enctype="multipart/form-data"> 
+{% csrf_token %}
+{%  if mensaje %}
+  <div class="alert alert-success" role="alert">
+    Autor Editado!
+  </div>
+{% endif %}
+
+{{ form|crispy }}
+{{ form.media }}
+{% if user.is_authenticated%}
+<button type="submit" class="btn btn-success">Guardar</button>
+<a class="btn btn-danger" href="{% url 'Blog:index' %}">Cancelar</a>
+{% endif %}
+</form>
+
+<!--<script src="/static/ckeditor/ckeditor-init.js" data-ckeditor-basepath="/static/ckeditor/ckeditor/" id="ckeditor-init-script"></script>
 
 <script src="/static/ckeditor/ckeditor/ckeditor.js"></script>
 
@@ -164,6 +190,6 @@
   <a class="btn btn-danger" href="{% url 'Blog:index' %} " role="button">Cancelar</a>
 </span>
 </center>
-{% endif%}
+{% endif%}-->
 
 {% endblock contenido %}
