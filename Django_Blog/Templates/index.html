@@ -56,6 +56,7 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'Blog:aboutus' %}">Aboutus</a>
             </li>
+            {% if user.is_authenticated%}
              <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 CRUDS
@@ -63,8 +64,15 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{% url 'Blog:autores' %}">Autores</a>
                 <a class="dropdown-item" href="{% url 'Blog:posts' %}">Post</a>
-                
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="">Login</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -88,13 +96,6 @@
 
     </header>
   {% block barra_busqueda %}
-
-
-
-
-
-
-
 
   <div class="container">
     <div class="row">
@@ -149,16 +150,7 @@
                         <a class="btn btn-danger" href="{% url 'Blog:elimina_post' post.id %}" role="button"><i class="fas fa-trash-alt"></i></a>
                         {% endif%}
                       </div>
-                      
-                      <!--  <center>
-                      <span >
-                      <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button">Editar</a>
-                    </span>
-                    <span >
-                      <a class="btn btn-danger" href="eliminaPost/{{post.slug}}" role="button">Eliminar</a>
-                    </span>
-                    </center> -->
-                   
+                                         
                     <br>
                      <div class="card-footer text-muted">
                         <p class="post-meta">Escrito por <strong>{{ post.autor }}</strong> el {{ post.fecha_creacion }}</p>
