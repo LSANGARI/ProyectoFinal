@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
+
 class formAutor(forms.ModelForm):
 
     class Meta:
@@ -34,5 +35,4 @@ class formPerfil(forms.ModelForm):
         model=Autor
         fields = '__all__'
         exclude = ["username"]
-
 

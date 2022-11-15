@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" type="image/jpg" href="{% static 'img/favicon.ico' %}"/>
 
     <title>{% block titulo %}Blog - Proyecto Final{% endblock titulo %}</title>
 
@@ -19,6 +20,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/clean-Blog.css' %}" rel="stylesheet">
+
 
   </head>
 
@@ -61,8 +63,8 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 CRUDS
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'Blog:autores' %}">Autores</a>
+              <div class="dropdown-menu "  aria-labelledby="navbarDropdown">
+                <a class="dropdown-item " href="{% url 'Blog:autores' %}">Autores</a>
                 <a class="dropdown-item" href="{% url 'Blog:posts' %}">Post</a>
             </li>
             
@@ -72,8 +74,10 @@
                 {{user.username}}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               
                 <a class="dropdown-item" href="{% url 'Blog:perfilAutor' user.id %}">Mi Perfil</a>
                 <a class="dropdown-item" href="{% url 'Blog:logout' %}">Logout</a>
+             
             </li>
             {% else %}
             <li class="nav-item">
@@ -110,7 +114,7 @@
         <form method="get">
             <div id="custom-search-input">
               <div class="input-group col-md-12">
-                <input type="text" class="form-control" placeholder="Buscar..." name="buscar" value = "{{ request.GET.buscar }}">
+                <input type="text" class="form-control" placeholder="Buscar..." style="text-align: center" name="buscar" value = "{{ request.GET.buscar }}">
                 <span class="input-group-list">
                   <i class="icon icon-search"></i>
                   <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
