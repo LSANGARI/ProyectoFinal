@@ -21,12 +21,12 @@ CRUD
 
 <style>
   .table{
-    font-size: 12px;
+    font-size: 10px;
   }
 </style>
 
 
-          {% if forms.errors %}
+       <!--   {% if forms.errors %}
 
                 <div class="alert alert-danger" role="alert">
                   Ups!
@@ -48,8 +48,12 @@ CRUD
               {% if user.is_authenticated%}
               <button type="submit" class="btn btn-success"><i class="fas fa-save"></i></button>
               {% endif %}
-          </form>
+          </form>-->
 <br>
+<div class="card  text-black" style="border-radius: 1rem;">
+  <div class="card-body">
+   <div >
+
           <div class=''>
             <h2>Listado de Autores</h2>
            <div class="table-responsive">
@@ -99,5 +103,9 @@ CRUD
                 </tbody>
               </table>
             </div> 
+
+          </div>
+        </div>
+      </div>
 
 {% endblock contenido %}

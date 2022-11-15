@@ -19,6 +19,10 @@ urlpatterns = [
     path('editaPost/<slug>/', formPostView.edit, name='editarPost_post'),
     path('autores/', formAutorView.index, name='autores'),
     path('editarAutor/<autor_id>', formAutorView.edit, name='editarAutor'),
+
+    path('perfilAutor/<user_id>', formAutorView.perfil, name='perfilAutor'),
+    path('guardarPerfilAutor/<user_id>', formAutorView.guardarperfil, name='guardarPerfilAutor'),
+
     path('eliminarAutor/<autor_id>/', formAutorView.delete, name='eliminarAutor'),
     path('updateAutor/<autor_id>/', formAutorView.update, name='updateAutor'),
     path('posts/', formPostView.index, name='posts'),
@@ -26,8 +30,9 @@ urlpatterns = [
     path('guardarAutor/', formAutorView.create, name='guardarAutor'),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
+    path('register/', register, name='register'),
 
-     path('<id>/', detallePost, name='detalle_post'),
+    path('<id>/', detallePost, name='detalle_post'),
     
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

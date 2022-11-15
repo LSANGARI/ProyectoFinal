@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+CRUD
+{% endblock titulo %}
+
+{% block imagen %}
+  {% static 'img/crud.png' %}
+{% endblock imagen %}
+
+{% block titulo_principal %}
+  Alta - Lectura -  Modificacion - Baja
+{% endblock titulo_principal %}
+
+{% block barra_busqueda %}
+{% endblock barra_busqueda %}
+
+{% block contenido %}
+
+
+
+          {% if forms.errors %}
+
+                <div class="alert alert-danger" role="alert">
+                  Ups!
+                </div>
+
+          {% endif %}
+
+          <h1>Editar Usuario</h1>
+
+          <form action="{% url 'Blog:updateAutor' autor.id %}" method="POST" > 
+              {% csrf_token %}
+              {%  if mensaje %}
+                  <div class="alert alert-success" role="alert">
+                    Usuario Editado!
+                  </div>
+              {% endif %}
+
+              {{ form|crispy }}
+              {% if user.is_authenticated%}
+              <button type="submit" class="btn btn-success">Guardar</button>
+              <a class="btn btn-danger" href="{% url 'Blog:autores' %}">Cancelar</a>
+              {% endif %}
+          </form>
+
+         
+
+
+{% endblock contenido %}

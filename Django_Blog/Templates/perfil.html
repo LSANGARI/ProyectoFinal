@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+Mi Perfil
+{% endblock titulo %}
+
+{% block imagen %}
+  {% static 'img/perfil.jpg' %}
+{% endblock imagen %}
+
+{% block titulo_principal %}
+  Mi Perfil
+{% endblock titulo_principal %}
+
+{% block barra_busqueda %}
+{% endblock barra_busqueda %}
+
+{% block contenido %}
+
+
+{% if forms.errors %}
+
+                <div class="alert alert-danger" role="alert">
+                  Ups!
+                </div>
+
+          {% endif %}
+
+          <h1>Editando mi Perfil  {{ user.username}}</h1>
+
+          <div class="card  text-black" style="border-radius: 1rem;">
+            <div class="card-body">
+             <div >
+
+          <form action="{% url 'Blog:guardarPerfilAutor' user.id %}" method="POST" > 
+              {% csrf_token %}
+              {%  if mensaje %}
+                  <div class="alert alert-success" role="alert">
+                    Autor Editado!
+                  </div>
+              {% endif %}
+             
+              {{ form|crispy }}
+            
+              
+
+              {% if user.is_authenticated%}
+              <center>
+              <button type="submit" class="btn btn-success"><i class="fas fa-save"></i></button>
+              <a class="btn btn-danger" href="{% url 'Blog:autores' %}"><i class="fas fa-undo"></i></a>
+            </center>
+              {% endif %}
+          </form>
+        </div>
+    </div>
+  </div>
+       
+
+         
+
+
+{% endblock contenido %}
+
+
+
+

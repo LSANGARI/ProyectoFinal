@@ -1,13 +1,13 @@
+import os
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
-from .models import Post, Categoria, Autor
-#from django.conf import settings
 from django.db.models import Q
 from django.core.paginator import Paginator
-#from django.utils.datastructures import MultiValueDictKeyError
-from .forms import formAutor, formPost
+from .forms import formAutor, formPost, UserRegisterForm, formPerfil
 from django.conf import settings
-import os
+from .models import Post, Categoria, Autor
+
+from django.contrib import messages
 
 #from django.views.generic.edit import formAutor
 
@@ -159,8 +159,21 @@ class formAutorView(HttpRequest):
 
     def edit(request, autor_id):
         autor = Autor.objects.filter(id=autor_id).first()
-        form = formAutor(instance=autor)   
+        form = formPerfil(instance=autor)   
         return render(request, 'editarAutor.html', {'form':form, 'autor':autor, })
+
+    def perfil(request, user_id):
+        autor = Autor.objects.filter(username_id=user_id).first()
+        form = formPerfil(instance=autor)   
+        return render(request, 'perfil.html', {'form':form, 'autor':autor, })
+
+    def guardarperfil(request, user_id):
+        autor= Autor.objects.get(username_id=user_id)
+        form = formPerfil(request.POST, instance=autor)
+        if form.is_valid():
+             form.save()
+             autor = formPerfil() 
+        return render(request, 'perfil.html', {'form':form, 'autor':autor, })
 
     def update(request, autor_id):
         autor= Autor.objects.get(pk=autor_id)
@@ -230,6 +243,22 @@ class formPostView(HttpRequest):
                  post.save()
                  form = formPost() 
                  return redirect ('/')
+
+def register(request):
+        if request.method ==  'POST':
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data['username']
+                messages.success(request, f'Usuario {username} creado Correctamente')
+                return redirect('/')
+        else:
+            form= UserRegisterForm()
+        context = {'form': form}
+        return render(request, 'register.html/', context)
+
+        
+        
         
         
 

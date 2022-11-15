@@ -7,11 +7,11 @@ Login
 {% endblock titulo %}
 
 {% block imagen %}
-  {% static 'img/login.jpg' %}
+  {% static 'img/register.jpg' %}
 {% endblock imagen %}
 
 {% block titulo_principal %}
-  Login
+  Registro
 {% endblock titulo_principal %}
 
 {% block barra_busqueda %}
@@ -19,24 +19,35 @@ Login
 
 {% block contenido %}
 
+{% if messages %}
+    {% for message in messages%}
+        <div class="alert alert-success" role="alert" {{message.tag}}>
+        {{message}}    
+        </div>
+    {%endfor%}
+{% endif %}
+
 <!--<link href="{% static 'vendor/bootstrap/css/bootstrap.min522.css' %}" rel="stylesheet">--> 
     
         <div class="card  text-black" style="border-radius: 1rem;">
           <div class="card-body">
-           <div >
-              <form class='form' method="POST">
-                  {% csrf_token %}
-                  {{ form|crispy }}
 
-                  {% comment %} <p class="small "><a class="text-black" href="#!">Se te olvidó tu contraseña?</a></p> {% endcomment %}
-              <center>
-                <button type='submit' id='submit' class="btn btn-primary"><i class="fas fa-sign-in-alt"></i></button>
-              </center>    
-              </form>
-              No tienes una cuenta? <a href="{% url 'Blog:register' %}" class="text-black fw-bold">Registrece</a>
+            <div >
+
+              <form class='form' method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+            
+            <center>
+              <button type='submit' id='submit' class="btn btn-primary"><i class="fas fa-sign-in-alt"></i></button>
+            </center>    
+            </form>
+
            </div>
+
+           
           </div>
         </div>
-        
+  
 
 {% endblock contenido %}

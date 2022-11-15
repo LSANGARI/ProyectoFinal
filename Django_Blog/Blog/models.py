@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
 # Create your models here.
@@ -17,6 +18,7 @@ class Categoria(models.Model):
 
 
 class Autor(models.Model):
+    username = models.OneToOneField(User, on_delete=models.CASCADE,  null=True, blank=True)
     nombre = models.CharField('Nombre Autor', max_length=255, null= False, blank=False)
     apellido = models.CharField('Apellido Autor', max_length=255, null= False, blank=False)
     linkedin = models.URLField('linkedin', null=True, blank=True)
