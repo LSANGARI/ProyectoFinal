@@ -76,6 +76,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                
                 <a class="dropdown-item" href="{% url 'Blog:perfilAutor' user.id %}">Mi Perfil</a>
+                <a class="dropdown-item" href="{% url 'admin:password_change' %}" target="_blank">Reset Password</a>
                 <a class="dropdown-item" href="{% url 'Blog:logout' %}">Logout</a>
              
             </li>
@@ -141,7 +142,7 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-md-12 mx-auto">
           {% block contenido %}
           {% if posts %}
             {% for post in posts %}

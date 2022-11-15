@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 
 {% block titulo %}
 CRUD
@@ -29,7 +30,11 @@ CRUD
 
           {% endif %}
 
-          <h1>Editar Autor</h1>
+        <center> <h1>Editar Autor</h1></center>
+
+        <div class="card  text-black" style="border-radius: 1rem;">
+          <div class="card-body">
+           <div >
 
           <form action="{% url 'Blog:updateAutor' autor.id %}" method="POST" > 
               {% csrf_token %}
@@ -48,7 +53,9 @@ CRUD
               {% endif %}
           </form>
 
-         
+            </div>
+    </div>
+  </div>
 
 
 {% endblock contenido %}

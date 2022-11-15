@@ -248,6 +248,7 @@ def register(request):
         if request.method ==  'POST':
             form = UserRegisterForm(request.POST)
             if form.is_valid():
+                form.instance.is_staff=True 
                 form.save()
                 username = form.cleaned_data['username']
                 messages.success(request, f'Usuario {username} creado Correctamente')

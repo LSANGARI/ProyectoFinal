@@ -14,6 +14,9 @@
 {% endblock imagen %}
 
 {% block titulo_principal %}
+
+
+
    <h1>{{ detalle_post.titulo }}</h1>
    <p>{{ detalle_post.descripcion }}</p>
 
@@ -24,12 +27,22 @@
 {% block barra_busqueda %}
 {% endblock barra_busqueda %}
 
+
 {% block contenido %}
+<div class="card text-black" style="border-radius: 1rem; " > 
+  <div class="card-body" >
+    <div >
+
   {{ detalle_post.contenido | safe }}
   <center>
     
     <a class="btn btn-danger" href="{% url 'Blog:index' %}"><i class="fas fa-home"></i></a>
     
   </center>
+
+</div>
+</div>
+</div>
+
   
 {% endblock contenido %}

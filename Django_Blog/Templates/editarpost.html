@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
+(% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 
 {% block titulo %}
   {{ post.titulo }}
@@ -42,8 +43,10 @@
 </div>
 
 {% endif %}
-
-<h1>Editar Post</h1>
+<center><h1>Editar Post</h1></center>
+<div class="card text-black" style="border-radius: 1rem; " > 
+  <div class="card-body" >
+    <div >
 
 <form action="{% url 'Blog:guardar_post' post.id%}" method="POST" enctype="multipart/form-data"> 
 {% csrf_token %}
@@ -62,6 +65,10 @@
 </center>
 {% endif %}
 </form>
+
+</div>
+</div>
+</div>
 
 <!--<script src="/static/ckeditor/ckeditor-init.js" data-ckeditor-basepath="/static/ckeditor/ckeditor/" id="ckeditor-init-script"></script>
 
