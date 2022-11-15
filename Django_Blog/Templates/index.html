@@ -150,11 +150,11 @@
                     {% comment %} <div class="card border-primary mb-3 text-center"> {% endcomment %}
                       <div class="card text-center" style="border-radius: 1rem;">
                       <div class="card-header">
-                        {{ post.titulo }}
+                        <h5 class="card-title">{{ post.titulo }}</h5>
                       </div>
-                      <div class="card-body ">
-                        <h5 class="card-title "> {{ post.descripcion }}</h5>
-                        <p class="card-text text-truncate"> {{ post.contenido }}</p>
+                      <div class="card-body">
+                        <p class="card-title">{{ post.descripcion }}</p>
+                        <p class="card-text text-truncate">{{ post.contenido }}</p>
                         <a href="{% url 'Blog:detalle_post' post.id %}" class="btn btn-success"><i class="fas fa-eye"></i></a>
                         {% if user.is_authenticated%}
                         <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button"><i class="fas fa-edit"></i></a>
