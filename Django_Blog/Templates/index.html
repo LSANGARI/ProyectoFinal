@@ -64,7 +64,9 @@
                 CRUDS
               </a>
               <div class="dropdown-menu "  aria-labelledby="navbarDropdown">
+                {% if user.is_superuser %}
                 <a class="dropdown-item " href="{% url 'Blog:autores' %}">Autores</a>
+                {% endif %}
                 <a class="dropdown-item" href="{% url 'Blog:posts' %}">Post</a>
             </li>
             

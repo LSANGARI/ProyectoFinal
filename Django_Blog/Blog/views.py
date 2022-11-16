@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from .forms import formAutor, formPost, UserRegisterForm, formPerfil
 from django.conf import settings
+from django.urls import reverse_lazy
 from .models import Post, Categoria, Autor, Like
 
 from django.contrib import messages
@@ -187,7 +188,11 @@ class formAutorView(HttpRequest):
 class formPostView(HttpRequest):
 
     def index(request):
-        post = formPost()
+        user = request.user
+        initial_data={
+            'autor':user, 
+        }
+        post = formPost(initial=initial_data)
         return render(request, 'posts.html', {'form':post})
 
     def create(request):
@@ -201,6 +206,7 @@ class formPostView(HttpRequest):
         return render(request, 'posts.html', {'mensaje':'OK', 'form':post})
 
     def edit(request, slug):
+        
 
         post = Post.objects.filter(slug=slug).first()
         form = formPost(instance=post)   
