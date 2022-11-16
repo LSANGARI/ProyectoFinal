@@ -17,6 +17,7 @@ class formPost(forms.ModelForm):
     class Meta:
         model=Post
         fields = '__all__'
+        exclude = ["liked"]
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()

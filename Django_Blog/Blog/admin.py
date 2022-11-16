@@ -34,4 +34,5 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Categoria,CategoriaAdmin)
 admin.site.register(Autor,AutorAdmin)
 admin.site.register(Post,PostAdmin)
+admin.site.register(Like)
 

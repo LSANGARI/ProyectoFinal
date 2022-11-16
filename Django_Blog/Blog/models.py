@@ -41,10 +41,11 @@ class Post(models.Model):
     descripcion = models.CharField('Descripcion', max_length=110, null= False, blank=False)
     contenido = RichTextField ('Contenido')
     imagen = models.ImageField('Imagen', null= False, blank=False, upload_to='images/')
-    autor = models.ForeignKey(Autor, on_delete = models.CASCADE)
+    autor = models.ForeignKey(User, on_delete = models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE)
     estado = models.BooleanField('Publicado/No Publicado', default = True)
     fecha_creacion = models.DateField('Fecha de Creacion', auto_now = False, auto_now_add = True)
+    liked = models.ManyToManyField(User, default=None, blank=True, related_name='liked')
 
     class Meta:
         verbose_name='Post'
@@ -52,3 +53,25 @@ class Post(models.Model):
 
     def __str__(self):
         return self.titulo
+
+    @property
+    def num_likes(self):
+        return self.liked.all().count()
+
+LIKE_CHOICES = (
+    ('Like', 'Like'),
+    ('Unlike', 'Unlike'),
+)
+
+class Like(models.Model):
+    autor = models.ForeignKey(Autor, on_delete = models.CASCADE)
+    postid = models.ForeignKey(Post, on_delete = models.CASCADE)
+    valor = models.CharField(choices=LIKE_CHOICES, default='Like', max_length=10)
+    fecha_creacion = models.DateField('Fecha de Creacion', auto_now = False, auto_now_add = True)
+
+    class Meta:
+        verbose_name='Like'
+        verbose_name_plural='Likes'
+
+    def __str__(self):
+        return str(self.post)

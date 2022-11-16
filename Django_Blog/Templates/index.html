@@ -151,7 +151,10 @@
                       <div class="card text-center" style="border-radius: 1rem;">
                       <div class="card-header">
                         <h5 class="card-title">{{ post.titulo }}</h5>
+                   
                       </div>
+                   
+                      
                       <div class="card-body">
                         <p class="card-title">{{ post.descripcion }}</p>
                         <p class="card-text text-truncate">{{ post.contenido }}</p>
@@ -159,11 +162,24 @@
                         {% if user.is_authenticated%}
                         <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button"><i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger" href="{% url 'Blog:elimina_post' post.id %}" role="button"><i class="fas fa-trash-alt"></i></a>
+
                         {% endif%}
                       </div>
                  
-                     <div class="card-footer text-muted">
+                     <div class="card-footer ">
                        Escrito por <strong>{{ post.autor }}</strong> el {{ post.fecha_creacion }}
+                       {% if user.is_authenticated%}
+                       <form action="{% url 'Blog:like_post' %}" method='POST'>
+                        {% csrf_token %}
+                        <input type="hidden" name='post_id' value='{{post.id}}'>
+                        {% if user not in post.liked.all %}
+                        <button class='btn bg-transparent' type='submit'> <i class="fas fa-thumbs-up"></i></button>
+                        {% else %}
+                        <button class='btn bg-transparent' type='submit'> <i class="fas fa-thumbs-down"></i></button>
+                        {% endif %}
+                      </form>
+                      {% endif%}
+                     <strong>{{post.liked.all.count}} Like</strong>
                       </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from .forms import formAutor, formPost, UserRegisterForm, formPerfil
 from django.conf import settings
-from .models import Post, Categoria, Autor
+from .models import Post, Categoria, Autor, Like
 
 from django.contrib import messages
 
@@ -257,6 +257,31 @@ def register(request):
             form= UserRegisterForm()
         context = {'form': form}
         return render(request, 'register.html/', context)
+
+
+def like_post(request):
+    user = request.user
+  
+    if request.method =='POST':
+        post_id = request.POST.get('post_id')
+        post_obj = Post.objects.get(id=post_id)
+
+        if user in post_obj.liked.all():
+            post_obj.liked.remove(user)
+        else:
+            post_obj.liked.add(user)
+
+        # like, created = Like.objects.get_or_create(autor_id=user.id, postid=post_id)
+
+        # if not created:
+        #     if like.value == 'Like':
+        #         like.value= 'Unlike'
+        #     else:
+        #         like.value= 'Like'
+
+        #like.save()
+
+    return redirect ('/')
 
         
         
