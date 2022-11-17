@@ -162,9 +162,10 @@
                         <p class="card-text text-truncate">{{ post.contenido }}</p>
                         <a href="{% url 'Blog:detalle_post' post.id %}" class="btn btn-success"><i class="fas fa-eye"></i></a>
                         {% if user.is_authenticated%}
+                        {% if user == post.autor %}
                         <a class="btn btn-primary" href="{% url 'Blog:editarPost_post' post.slug %}" role="button"><i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger" href="{% url 'Blog:elimina_post' post.id %}" role="button"><i class="fas fa-trash-alt"></i></a>
-
+                        {% endif%}
                         {% endif%}
                       </div>
                  
