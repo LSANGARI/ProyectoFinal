@@ -25,6 +25,7 @@ CRUD
   }
 </style>
 
+{% if user.is_superuser %}
 <div class="card  text-black" style="border-radius: 1rem;">
   <div class="card-body">
    <div >
@@ -36,9 +37,7 @@ CRUD
                 </div>
 
           {% endif %}
-
-        
-
+       
           <center><h1>Alta de Autor</h1></center>
 
           <form action="{% url 'Blog:guardarAutor' %}" method="POST" > 
@@ -56,36 +55,33 @@ CRUD
             </center>
               {% endif %}
           </form>
-
+          
         </div>
       </div>
     </div>
-  
+    {% endif %}
 <br>
+
 <div class="card  text-black" style="border-radius: 1rem;">
   <div class="card-body">
-   <div >
-
-          <div class=''>
            <center> <h2>Listado de Autores</h2></center>
            <div class="table-responsive">
               <table class='table table-striped table-hover table-sm'>
                 <thead>
                   <tr>
-                   
                     <th>Nombre Autor:</th>
                     <th>Apellido Autor:</th>
                     <th>Linkedin:</th>
                     <th>Git:</th>
                     <th>Email:</th>
                     <th>Activo/No Activo:</th>
-                    <th colspan="">Opciones</th>
+                    <th colspan="2"><center>Opciones</center></th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for autor in autores %}
                       <tr>
-                        <td style="display:none;">{{autor.id}}</td>
+                          <td style="display:none;">{{autor.id}}</td>
                           <td>{{autor.nombre}}</td>
                           <td>{{autor.apellido}}</td>
                           <td>{{autor.linkedin}}</td>
@@ -98,26 +94,24 @@ CRUD
                            
                           </div>
                             {% else %}
-            
                           <div class="form-check">
                             <input class="form-check-input" type="checkbox" onclick="return false;" name="estado" value="{{autor.estado}}" id="estado" >
-                           
                           </div>
                             {% endif %}
                           </td>
                          <!-- <td>{{autor.estado}}</td>-->
-                          {% if user.is_authenticated%}
-                          <td><a href="{% url 'Blog:editarAutor' autor.id %}" class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
-                          <td><a href="{% url 'Blog:eliminarAutor' autor.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-                          {% endif %}
+                          
+                       
+                          <td> {% if user.id == autor.id or user.is_superuser %}{% if user.is_authenticated%}<a href="{% url 'Blog:editarAutor' autor.id %}" class="btn btn-primary"><i class="fas fa-edit"></i></a> {% endif %}{% endif %}</td>
+                          <td>{% if user.id == autor.id or user.is_superuser %}{% if user.is_authenticated%}<a href="{% url 'Blog:eliminarAutor' autor.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>{% endif %}{% endif %}</td>
                       </tr>
+                    
+                     
                   {%endfor%}
                 </tbody>
               </table>
-            </div> 
-
-          </div>
-        </div>
-      </div>
+        </div> 
+    </div>
+</div>
 
 {% endblock contenido %}
