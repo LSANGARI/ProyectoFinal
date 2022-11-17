@@ -61,7 +61,7 @@
 {% if user.is_authenticated%}
 <center>
 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i></button>
-<a class="btn btn-danger" href="{% url 'Blog:index' %}"><i class="fas fa-home"></i></a>
+<a class="btn btn-danger" href="{{request.META.HTTP_REFERER}}"><i class="fas fa-undo"></i></a>
 </center>
 {% endif %}
 </form>

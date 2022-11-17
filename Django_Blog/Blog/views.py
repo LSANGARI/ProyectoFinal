@@ -206,7 +206,7 @@ class formPostView(HttpRequest):
         return render(request, 'posts.html', {'mensaje':'OK', 'form':post})
 
     def edit(request, slug):
-        
+
 
         post = Post.objects.filter(slug=slug).first()
         form = formPost(instance=post)   
@@ -258,7 +258,8 @@ def register(request):
                 form.save()
                 username = form.cleaned_data['username']
                 messages.success(request, f'Usuario {username} creado Correctamente')
-                return redirect('/')
+                return redirect('/login/')
+                #return redirect(request.META.get('HTTP_REFERER'))
         else:
             form= UserRegisterForm()
         context = {'form': form}
@@ -287,52 +288,5 @@ def like_post(request):
 
         #like.save()
 
-    return redirect ('/')
-
-        
-        
-        
-        
-
-
-
-
-# def guardarPost(request):
-
-#     id =request.POST['id']
-#     titulo =request.POST['titulo']
-
-#     slug = request.POST['slug'].replace('', '_')
-
-#     descripcion = request.POST['descripcion']
-#     contenido = request.POST['contenido']
-#     #ver el tema de no modifica el img
-#     if request.POST.get('imagen')=='':
-#         imagen = request.POST['url']
-#         imagen = imagen.replace('media/', '')
-#     else:
-#         imagen = request.FILES['imagen']
-
-#     autor = request.POST['autor']
-#     categoria = request.POST['categoria']
-
-
-
-#     if 'estado' in request.POST: 
-#         estado = True 
-#     else: estado = False
-
-
-#     post = Post.objects.get(id=id)
-
-#     post.titulo = titulo
-#     post.slug = slug
-#     post.descripcion = descripcion
-#     post.contenido = contenido
-#     post.imagen = imagen
-#     post.autor = Autor(id=autor)
-#     post.categoria = Categoria(id=categoria)
-#     post.estado = estado
-
-#     post.save()
-#     return redirect ('/')
+    #return redirect ('/')
+    return redirect(request.META.get('HTTP_REFERER'))
