@@ -38,13 +38,13 @@ CRUD
 
           {% endif %}
        
-          <center><h1>Alta de Autor</h1></center>
+          <center><h1>Alta de Usuarios</h1></center>
 
           <form action="{% url 'Blog:guardarAutor' %}" method="POST" > 
               {% csrf_token %}
               {%  if mensaje %}
                   <div class="alert alert-success" role="alert">
-                    Autor Registrado!
+                    Usuario Registrado!
                   </div>
               {% endif %}
 
@@ -64,7 +64,7 @@ CRUD
 
 <div class="card  text-black" style="border-radius: 1rem;">
   <div class="card-body">
-           <center> <h2>Listado de Autores</h2></center>
+           <center> <h2>Perfiles de Usuarios</h2></center>
            <div class="table-responsive">
               <table class='table table-striped table-hover table-sm'>
                 <thead>

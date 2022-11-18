@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from .forms import formAutor, formPost, UserRegisterForm, formPerfil
 from django.conf import settings
 from django.urls import reverse_lazy
-from .models import Post, Categoria, Autor, Like
+from .models import Post, Categoria, Autor, User
 
 from django.contrib import messages
 
@@ -137,25 +137,34 @@ def aboutus(request):
 class formAutorView(HttpRequest):
 
     def index(request):
-        autor = formAutor()
+        # autor = formAutor()
+        # autores = Autor.objects.all()
+        autor = UserRegisterForm()
         autores = Autor.objects.all()
         return render(request, 'autores.html', {'form':autor, 'autores':autores})
 
     def create(request):
-        autor = formAutor(request.POST)
+        # autor = formAutor(request.POST)
+        # if autor.is_valid():
+        #     autor.save()
+        #     autores = Autor.objects.all()
+        #     autor=formAutor()
+        autor = UserRegisterForm(request.POST)
         if autor.is_valid():
             autor.save()
-            
             autores = Autor.objects.all()
-            autor=formAutor()
+            autor=UserRegisterForm()
+
         return render(request, 'autores.html', {'form':autor, 'autores':autores, 'mensaje':'OK' })
         #return redirect(request.META['HTTP_REFERER'])
 
+
+
     def delete(request, autor_id):
-        autor = Autor.objects.get(pk=autor_id)
+        autor = User.objects.get(pk=autor_id)
         autor.delete()
         autores = Autor.objects.all()
-        autor = formAutor()
+        autor = UserRegisterForm()
         return render(request, 'autores.html', {'form':autor, 'autores':autores})
 
     def edit(request, autor_id):
