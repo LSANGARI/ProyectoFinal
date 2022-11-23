@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from .forms import formAutor, formPost, UserRegisterForm, formPerfil
 from django.conf import settings
-from django.urls import reverse_lazy
+#from django.urls import reverse_lazy
 from .models import Post, Categoria, Autor, User
 
 from django.contrib import messages
